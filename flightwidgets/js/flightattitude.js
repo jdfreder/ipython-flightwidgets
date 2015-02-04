@@ -3,13 +3,17 @@ define(function(require) {
 
     var FlightAttitudeView = widget.DOMWidgetView.extend({
         render: function() {
+            var backdrop_size = 3000;
+            var frame_size = 300;
+            this.backdrop_size = backdrop_size;
+            this.frame_size = frame_size;
 
             // Create the viewing frame.
             this.$frame = $('<div/>')
                 .css({
                     overflow: 'hidden',
-                    width: 300,
-                    height: 300,
+                    width: frame_size,
+                    height: frame_size,
                     border: '2px solid black'
                 }).appendTo(this.$el);
 
@@ -17,10 +21,10 @@ define(function(require) {
             this.$backdrop = $('<div/>')
                 .css({
                     position: 'relative',
-                    width: 1000,
-                    height: 1000,
-                    top: -350,
-                    left: -350
+                    width: backdrop_size,
+                    height: backdrop_size,
+                    top: frame_size/2-backdrop_size/2,
+                    left: frame_size/2-backdrop_size/2
                 })
                 .append($('<div/>')
                     .css({
@@ -45,19 +49,19 @@ define(function(require) {
             // Create horizontal lines in the backdrop.
             var that = this;
             var make_line = function(thickness, degrees, width) {
-                width = width || 150;
+                width = width || frame_size/2;
                 return $('<div/>')
                     .css({
                         background: 'white',
                         height: thickness,
                         width: width,
                         position: 'absolute',
-                        left: 500 - (width / 2),
-                        top: (500 + degrees * 4) - (thickness / 2)
+                        left: backdrop_size/2 - (width / 2),
+                        top: (backdrop_size/2 + degrees * 4) - (thickness / 2)
                     }).appendTo(that.$backdrop);
             };
             // First create a thick ground line.
-            make_line(5, 0, 200);
+            make_line(5, 0, 2*frame_size/3);
             // Ticks
             var angle;
             for (angle = -180; angle <= 180; angle+=2) {
@@ -67,7 +71,7 @@ define(function(require) {
                         make_line(2, angle);
                     } else {
                         // Minor
-                        make_line(1, angle, 100);
+                        make_line(1, angle, frame_size/3);
                     }
                 }
             }
@@ -78,8 +82,8 @@ define(function(require) {
                     position: 'relative',
                     width: 150,
                     height: 4,
-                    top: -852,
-                    left: 75,
+                    top: frame_size/2-backdrop_size,
+                    left: frame_size/2-75,
                     background: 'orange'
                 }).append(
                     $('<div/>')
@@ -106,8 +110,8 @@ define(function(require) {
                  'transform' : 'rotate('+ roll +'deg)'});
 
             var pitch = this.model.get('pitch');
-            var top = -350;
-            var left = -350;
+            var top = this.frame_size/2-this.backdrop_size/2;
+            var left = this.frame_size/2-this.backdrop_size/2;
             var roll_rad = roll/180*Math.PI;
             top += pitch * 4 * Math.cos(roll_rad);
             left -= pitch * 4 * Math.sin(roll_rad);
