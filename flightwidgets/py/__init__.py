@@ -1,0 +1,1 @@
+from .flightattitude import FlightAttitudeWidget
