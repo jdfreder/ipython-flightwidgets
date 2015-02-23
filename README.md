@@ -1,6 +1,8 @@
 # ipython-flightwidgets
 Flight attitude widget
 
+![Screenshot](/screenshot.png)
+
 ## Install
 ```
 git clone https://github.com/jdfreder/ipython-flightwidgets.git
