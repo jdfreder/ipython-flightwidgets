@@ -3,19 +3,23 @@ Flight attitude widget
 
 ![Screenshot](/screenshot.png)
 
-## Install
+## Installation
+
+- Install the Python package
+
 ```
 git clone https://github.com/jdfreder/ipython-flightwidgets.git
-cd ipython-flightwidgets
-sudo pip install .
+pip install -e ipython-flightwidgets
 ```
 
-Note: When you update the repository you must run the following to update the installation.
+- Install and register the notebook extension
+
 ```
-sudo pip install --upgrade .
+python -m flightwidgets.install --user --symlink
 ```
 
 ## Usage
+
 ```python
 import flightwidgets
 ```
